@@ -35,6 +35,9 @@ type Product_variables struct {
 	Uses_generic_camera_parameter_library struct {
 		Srcs []string
 	}
+	Uses_qcom_bsp_legacy struct {
+		Cppflags []string
+	}
 }
 
 type ProductVariables struct {
@@ -49,4 +52,5 @@ type ProductVariables struct {
 	Specific_camera_parameter_library  *string `json:",omitempty"`
 	Target_init_vendor_lib  *string `json:",omitempty"`
         Target_surfaceflinger_fod_lib  *string `json:",omitempty"`
+        Uses_qcom_bsp_legac  *bool   `json:",omitempty"`
 }
