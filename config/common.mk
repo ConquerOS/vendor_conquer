@@ -128,6 +128,9 @@ USE_DEX2OAT_DEBUG := false
 PRODUCT_MINIMIZE_JAVA_DEBUG_INFO := true
 PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
 
+# Inherit art options
+include vendor/conquer/config/art.mk
+
 # Common Device Configuration
 include device/conquer/common/device.mk
 
