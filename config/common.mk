@@ -109,6 +109,10 @@ PRODUCT_PACKAGE_OVERLAYS += vendor/conquer/overlay/dictionaries
 # and breaks WPA Supplicant compilation.
 DISABLE_EAP_PROXY := true
 
+# TCP Connection Management
+PRODUCT_PACKAGES += tcmiface
+PRODUCT_BOOT_JARS += tcmiface
+
 ifneq ($(HOST_OS),linux)
 ifneq ($(sdclang_already_warned),true)
 $(warning **********************************************)
