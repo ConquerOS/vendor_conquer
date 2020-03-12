@@ -73,6 +73,10 @@ DEVICE_PACKAGE_OVERLAYS += vendor/conquer/overlay/common
 PRODUCT_COPY_FILES += \
     vendor/conquer/prebuilt/common/etc/sensitive_pn.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sensitive_pn.xml
 
+# Use default filter for problematic apps.
+PRODUCT_DEXPREOPT_QUICKEN_APPS += \
+    Dialer
+
 # Include Lineage LatinIME dictionaries
 PRODUCT_PACKAGE_OVERLAYS += vendor/conquer/overlay/dictionaries
 
