@@ -14,6 +14,10 @@
 # limitations under the License.
 #
 
+# ART
+# Optimize everything for preopt
+PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := everything
+
 # Backup Tool
 PRODUCT_COPY_FILES += \
     vendor/conquer/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
@@ -61,11 +65,6 @@ PRODUCT_MINIMIZE_JAVA_DEBUG_INFO := true
 
 # Disable vendor restrictions
 PRODUCT_RESTRICT_VENDOR_FILES := false
-
-# Dex preopt
-PRODUCT_DEXPREOPT_SPEED_APPS += \
-    SystemUI \
-    TrebuchetQuickStep
 
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/conquer/overlay
 DEVICE_PACKAGE_OVERLAYS += vendor/conquer/overlay/common
