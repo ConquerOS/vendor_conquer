@@ -88,9 +88,14 @@ PRODUCT_PACKAGES += \
     messaging \
     ExactCalculator
 
+
 # Build ConquerOS Required Apps
 PRODUCT_PACKAGES += \
     Gallery2
+
+# Long Screenshot
+PRODUCT_PACKAGES += \
+    StitchImage
 
 # MSIM manual provisioning
 PRODUCT_PACKAGES += telephony-ext
