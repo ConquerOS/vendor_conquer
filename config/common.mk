@@ -132,5 +132,8 @@ include vendor/conquer/config/version.mk
 # Props
 include vendor/conquer/config/props.mk
 
+# OTA
+include vendor/conquer/config/ota.mk
+
 # ConquerUI
 include vendor/conquerui/config.mk
