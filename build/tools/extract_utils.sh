@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
 # Copyright (C) 2017-2019 The LineageOS Project
+# Copyright (C) 2020 ConquerOS
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -47,7 +48,7 @@ trap cleanup 0
 #
 # $1: device name
 # $2: vendor name
-# $3: Lineage root directory
+# $3: root directory
 # $4: is common device - optional, default to false
 # $5: cleanup - optional, default to true
 # $6: custom vendor makefile name - optional, default to false
@@ -68,15 +69,15 @@ function setup_vendor() {
         exit 1
     fi
 
-    export LINEAGE_ROOT="$3"
-    if [ ! -d "$LINEAGE_ROOT" ]; then
-        echo "\$LINEAGE_ROOT must be set and valid before including this script!"
+    export ROOT="$3"
+    if [ ! -d "$ROOT" ]; then
+        echo "\$ROOT must be set and valid before including this script!"
         exit 1
     fi
 
     export OUTDIR=vendor/"$VENDOR"/"$DEVICE"
-    if [ ! -d "$LINEAGE_ROOT/$OUTDIR" ]; then
-        mkdir -p "$LINEAGE_ROOT/$OUTDIR"
+    if [ ! -d "$ROOT/$OUTDIR" ]; then
+        mkdir -p "$ROOT/$OUTDIR"
     fi
 
     VNDNAME="$6"
@@ -84,10 +85,10 @@ function setup_vendor() {
         VNDNAME="$DEVICE"
     fi
 
-    export PRODUCTMK="$LINEAGE_ROOT"/"$OUTDIR"/"$VNDNAME"-vendor.mk
-    export ANDROIDBP="$LINEAGE_ROOT"/"$OUTDIR"/Android.bp
-    export ANDROIDMK="$LINEAGE_ROOT"/"$OUTDIR"/Android.mk
-    export BOARDMK="$LINEAGE_ROOT"/"$OUTDIR"/BoardConfigVendor.mk
+    export PRODUCTMK="$ROOT"/"$OUTDIR"/"$VNDNAME"-vendor.mk
+    export ANDROIDBP="$ROOT"/"$OUTDIR"/Android.bp
+    export ANDROIDMK="$ROOT"/"$OUTDIR"/Android.mk
+    export BOARDMK="$ROOT"/"$OUTDIR"/BoardConfigVendor.mk
 
     if [ "$4" == "true" ] || [ "$4" == "1" ]; then
         COMMON=1
@@ -643,9 +644,9 @@ function write_product_packages() {
     # I really should not be doing this in bash due to shitty array passing :(
     local T_LIB32=( $(prefix_match "lib/") )
     local T_LIB64=( $(prefix_match "lib64/") )
-    local MULTILIBS=( $(comm -12 <(printf '%s\n' "${T_LIB32[@]}") <(printf '%s\n' "${T_LIB64[@]}")) )
-    local LIB32=( $(comm -23 <(printf '%s\n'  "${T_LIB32[@]}") <(printf '%s\n' "${MULTILIBS[@]}")) )
-    local LIB64=( $(comm -23 <(printf '%s\n' "${T_LIB64[@]}") <(printf '%s\n' "${MULTILIBS[@]}")) )
+    local MULTILIBS=( $(comm --nocheck-order -12 <(printf '%s\n' "${T_LIB32[@]}") <(printf '%s\n' "${T_LIB64[@]}")) )
+    local LIB32=( $(comm -23 --nocheck-order <(printf '%s\n'  "${T_LIB32[@]}") <(printf '%s\n' "${MULTILIBS[@]}")) )
+    local LIB64=( $(comm -23 --nocheck-order <(printf '%s\n' "${T_LIB64[@]}") <(printf '%s\n' "${MULTILIBS[@]}")) )
 
     if [ "${#MULTILIBS[@]}" -gt "0" ]; then
         write_blueprint_packages "SHARED_LIBRARIES" "" "both" "MULTILIBS" >> "$ANDROIDBP"
@@ -675,9 +676,9 @@ function write_product_packages() {
 
     local T_V_LIB32=( $(prefix_match "vendor/lib/") )
     local T_V_LIB64=( $(prefix_match "vendor/lib64/") )
-    local V_MULTILIBS=( $(comm -12 <(printf '%s\n' "${T_V_LIB32[@]}") <(printf '%s\n' "${T_V_LIB64[@]}")) )
-    local V_LIB32=( $(comm -23 <(printf '%s\n' "${T_V_LIB32[@]}") <(printf '%s\n' "${V_MULTILIBS[@]}")) )
-    local V_LIB64=( $(comm -23 <(printf '%s\n' "${T_V_LIB64[@]}") <(printf '%s\n' "${V_MULTILIBS[@]}")) )
+    local V_MULTILIBS=( $(comm -12 --nocheck-order <(printf '%s\n' "${T_V_LIB32[@]}") <(printf '%s\n' "${T_V_LIB64[@]}")) )
+    local V_LIB32=( $(comm -23 --nocheck-order <(printf '%s\n' "${T_V_LIB32[@]}") <(printf '%s\n' "${V_MULTILIBS[@]}")) )
+    local V_LIB64=( $(comm -23 --nocheck-order <(printf '%s\n' "${T_V_LIB64[@]}") <(printf '%s\n' "${V_MULTILIBS[@]}")) )
 
     if [ "${#V_MULTILIBS[@]}" -gt "0" ]; then
         write_blueprint_packages "SHARED_LIBRARIES" "vendor" "both" "V_MULTILIBS" >> "$ANDROIDBP"
@@ -924,25 +925,7 @@ function write_makefile_header() {
     [ "$COMMON" -eq 1 ] && local DEVICE="$DEVICE_COMMON"
 
     NUM_REGEX='^[0-9]+$'
-    if [[ $INITIAL_COPYRIGHT_YEAR =~ $NUM_REGEX ]] && [ $INITIAL_COPYRIGHT_YEAR -le $YEAR ]; then
-        if [ $INITIAL_COPYRIGHT_YEAR -lt 2016 ]; then
-            printf "# Copyright (C) $INITIAL_COPYRIGHT_YEAR-2016 The CyanogenMod Project\n" > $1
-        elif [ $INITIAL_COPYRIGHT_YEAR -eq 2016 ]; then
-            printf "# Copyright (C) 2016 The CyanogenMod Project\n" > $1
-        fi
-        if [ $YEAR -eq 2017 ]; then
-            printf "# Copyright (C) 2017 The LineageOS Project\n" >> $1
-        elif [ $INITIAL_COPYRIGHT_YEAR -eq $YEAR ]; then
-            printf "# Copyright (C) $YEAR The LineageOS Project\n" >> $1
-        elif [ $INITIAL_COPYRIGHT_YEAR -le 2017 ]; then
-            printf "# Copyright (C) 2017-$YEAR The LineageOS Project\n" >> $1
-        else
-            printf "# Copyright (C) $INITIAL_COPYRIGHT_YEAR-$YEAR The LineageOS Project\n" >> $1
-        fi
-    else
-        printf "# Copyright (C) $YEAR The LineageOS Project\n" > $1
-    fi
-
+    printf "# Copyright (C) $YEAR ConquerOS \n" > $1
     cat << EOF >> $1
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -956,8 +939,6 @@ function write_makefile_header() {
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# This file is generated by device/$VENDOR/$DEVICE/setup-makefiles.sh
 
 EOF
 }
@@ -1070,7 +1051,6 @@ function parse_file_list() {
     else
         LIST=$1
     fi
-
 
     PRODUCT_PACKAGES_LIST=()
     PRODUCT_PACKAGES_HASHES=()
@@ -1185,24 +1165,23 @@ function get_file() {
 # Convert apk|jar .odex in the corresposing classes.dex
 #
 function oat2dex() {
-    local LINEAGE_TARGET="$1"
+    local TARGET="$1"
     local OEM_TARGET="$2"
     local SRC="$3"
-    local TARGET=
     local OAT=
-    local HOST="$(uname | tr '[:upper:]' '[:lower:]')"
+    local HOST="$(uname)"
 
     if [ -z "$BAKSMALIJAR" ] || [ -z "$SMALIJAR" ]; then
-        export BAKSMALIJAR="$LINEAGE_ROOT"/prebuilts/tools-lineage/common/smali/baksmali.jar
-        export SMALIJAR="$LINEAGE_ROOT"/prebuilts/tools-lineage/common/smali/smali.jar
+        export BAKSMALIJAR="$ROOT"/prebuilts/tools-pa/common/smali/baksmali.jar
+        export SMALIJAR="$ROOT"/prebuilts/tools-pa/common/smali/smali.jar
     fi
 
     if [ -z "$VDEXEXTRACTOR" ]; then
-        export VDEXEXTRACTOR="$LINEAGE_ROOT"/prebuilts/tools-lineage/${HOST}-x86/bin/vdexExtractor
+        export VDEXEXTRACTOR="$ROOT"/prebuilts/tools-pa/"${HOST,,}"-x86/bin/vdexExtractor
     fi
 
     if [ -z "$CDEXCONVERTER" ]; then
-        export CDEXCONVERTER="$LINEAGE_ROOT"/prebuilts/tools-lineage/${HOST}-x86/bin/compact_dex_converter
+        export CDEXCONVERTER="$ROOT"/prebuilts/tools-pa/"${HOST,,}"-x86/bin/compact_dex_converter
     fi
 
     # Extract existing boot.oats to the temp folder
@@ -1222,11 +1201,11 @@ function oat2dex() {
         FULLY_DEODEXED=1 && return 0 # system is fully deodexed, return
     fi
 
-    if [ ! -f "$LINEAGE_TARGET" ]; then
+    if [ ! -f "$TARGET" ]; then
         return;
     fi
 
-    if grep "classes.dex" "$LINEAGE_TARGET" >/dev/null; then
+    if grep "classes.dex" "$TARGET" >/dev/null; then
         return 0 # target apk|jar is already odexed, return
     fi
 
@@ -1254,7 +1233,7 @@ function oat2dex() {
                 java -jar "$BAKSMALIJAR" deodex -o "$TMPDIR/dexout" -b "$BOOTOAT" -d "$TMPDIR" "$TMPDIR/$(basename "$OAT")"
                 java -jar "$SMALIJAR" assemble "$TMPDIR/dexout" -o "$TMPDIR/classes.dex"
             fi
-        elif [[ "$LINEAGE_TARGET" =~ .jar$ ]]; then
+        elif [[ "$TARGET" =~ .jar$ ]]; then
             JAROAT="$TMPDIR/system/framework/$ARCH/boot-$(basename ${OEM_TARGET%.*}).oat"
             JARVDEX="/system/framework/boot-$(basename ${OEM_TARGET%.*}).vdex"
             if [ ! -f "$JAROAT" ]; then
@@ -1319,6 +1298,52 @@ function init_adb_connection() {
 }
 
 #
+# aria2dl:
+#
+# Checks if the file is available using "wget --spider" and proceeds
+# with the attempt to download it with aria2 download manager.
+#
+function aria2dl() {
+    DLDIR="$ROOT"/"$OUTDIR"
+    DLINK="$REMOTE"/"$1"
+    DCLIENT=$(which aria2c)
+    if wget --spider $DLINK &> /dev/null; then
+        if [ $DCLIENT ]; then
+            echo -e "Downloading with $DCLIENT, please wait..."
+            aria2c -x 4 $DLINK -d $DLDIR --async-dns=false
+        else
+            echo -e "Please, install aria2 download manager."
+            exit
+        fi;
+    else
+        echo -e "The mirror for $DLINK is offline! Check your connection."
+    fi;
+}
+
+#
+# download:
+#
+# $1: source zip file to download from remote
+#
+# Check if the zip file is available locally for extraction,
+# if not download it with aria2.
+#
+function download() {
+    local SRC="$1"
+    if [ "${SRC##*.}" == "zip" ]; then
+        if [ ! -f "$SRC" ]; then
+            echo "The source zip file was not found, attempting to download from remote..."
+            aria2dl "$SRC"
+        elif [ -f "$SRC.aria2" ]; then
+            echo "A partial aria2 download was found locally, resuming..."
+            aria2dl "$SRC"
+        else
+            echo "Going on with blobs extraction..."
+        fi
+    fi
+}
+
+#
 # fix_xml:
 #
 # $1: xml file to fix
@@ -1330,7 +1355,7 @@ function fix_xml() {
     grep -a '^<?xml version' "$XML" > "$TEMP_XML"
     grep -av '^<?xml version' "$XML" >> "$TEMP_XML"
 
-    mv "$TEMP_XML" "$XML"
+    mv -f "$TEMP_XML" "$XML"
 }
 
 function get_hash() {
@@ -1449,7 +1474,7 @@ function extract() {
     local FIXUP_HASHLIST=( ${PRODUCT_COPY_FILES_FIXUP_HASHES[@]} ${PRODUCT_PACKAGES_FIXUP_HASHES[@]} )
     local PRODUCT_COPY_FILES_COUNT=${#PRODUCT_COPY_FILES_LIST[@]}
     local COUNT=${#FILELIST[@]}
-    local OUTPUT_ROOT="$LINEAGE_ROOT"/"$OUTDIR"/proprietary
+    local OUTPUT_ROOT="$ROOT"/"$OUTDIR"/proprietary
     local OUTPUT_TMP="$TMPDIR"/"$OUTDIR"/proprietary
 
     if [ "$SRC" = "adb" ]; then
@@ -1474,28 +1499,18 @@ function extract() {
             if [ -a "$DUMPDIR"/payload.bin ]; then
                 echo "A/B style OTA zip detected. This is not supported at this time. Stopping..."
                 exit 1
+            # If OTA is block based, extract it.
+            elif [ -a "$DUMPDIR"/system.new.dat ]; then
+                echo "Converting system.new.dat to system.img"
+                python "$ROOT"/vendor/blobscript/sdat2img.py "$DUMPDIR"/system.transfer.list "$DUMPDIR"/system.new.dat "$DUMPDIR"/system.img 2>&1
+                rm -rf "$DUMPDIR"/system.new.dat "$DUMPDIR"/system
+                mkdir "$DUMPDIR"/system "$DUMPDIR"/tmp
+                echo "Requesting sudo access to mount the system.img"
+                sudo mount -o loop "$DUMPDIR"/system.img "$DUMPDIR"/tmp
+                cp -r "$DUMPDIR"/tmp/* "$DUMPDIR"/system/
+                sudo umount "$DUMPDIR"/tmp
+                rm -rf "$DUMPDIR"/tmp "$DUMPDIR"/system.img
             fi
-
-            for PARTITION in "system" "odm" "product" "vendor"
-            do
-                # If OTA is block based, extract it.
-                if [ -a "$DUMPDIR"/"$PARTITION".new.dat.br ]; then
-                    echo "Converting "$PARTITION".new.dat.br to "$PARTITION".new.dat"
-                    brotli -d "$DUMPDIR"/"$PARTITION".new.dat.br
-                    rm "$DUMPDIR"/"$PARTITION".new.dat.br
-                fi
-                if [ -a "$DUMPDIR"/"$PARTITION".new.dat ]; then
-                    echo "Converting "$PARTITION".new.dat to "$PARTITION".img"
-                    python "$LINEAGE_ROOT"/vendor/lineage/build/tools/sdat2img.py "$DUMPDIR"/"$PARTITION".transfer.list "$DUMPDIR"/"$PARTITION".new.dat "$DUMPDIR"/"$PARTITION".img 2>&1
-                    rm -rf "$DUMPDIR"/"$PARTITION".new.dat "$DUMPDIR"/"$PARTITION"
-                    mkdir "$DUMPDIR"/"$PARTITION" "$DUMPDIR"/tmp
-                    echo "Requesting sudo access to mount the "$PARTITION".img"
-                    sudo mount -o loop "$DUMPDIR"/"$PARTITION".img "$DUMPDIR"/tmp
-                    cp -r "$DUMPDIR"/tmp/* "$DUMPDIR"/"$PARTITION"/
-                    sudo umount "$DUMPDIR"/tmp
-                    rm -rf "$DUMPDIR"/tmp "$DUMPDIR"/"$PARTITION".img
-                fi
-            done
         fi
 
         SRC="$DUMPDIR"
@@ -1543,8 +1558,8 @@ function extract() {
         fi
 
         # Strip the file path in the vendor repo of "system", if present
+        local VENDOR_REPO_FILE="$OUTPUT_DIR/${DST_FILE#/system}"
         local BLOB_DISPLAY_NAME="${DST_FILE#/system/}"
-        local VENDOR_REPO_FILE="$OUTPUT_DIR/${BLOB_DISPLAY_NAME}"
         mkdir -p $(dirname "${VENDOR_REPO_FILE}")
 
         # Check pinned files
@@ -1576,7 +1591,7 @@ function extract() {
             printf '    + keeping pinned file with hash %s\n' "${HASH}"
         else
             FOUND=false
-            # Try Lineage target first.
+            # Try target first.
             # Also try to search for files stripped of
             # the "/system" prefix, if we're actually extracting
             # from a system image.
@@ -1600,7 +1615,6 @@ function extract() {
         if [[ "$FULLY_DEODEXED" -ne "1" && "${VENDOR_REPO_FILE}" =~ .(apk|jar)$ ]]; then
             oat2dex "${VENDOR_REPO_FILE}" "${SRC_FILE}" "$SRC"
             if [ -f "$TMPDIR/classes.dex" ]; then
-                touch -t 200901010000 "$TMPDIR/classes"*
                 zip -gjq "${VENDOR_REPO_FILE}" "$TMPDIR/classes"*
                 rm "$TMPDIR/classes"*
                 printf '    (updated %s from odex files)\n' "${SRC_FILE}"
@@ -1664,7 +1678,7 @@ function extract_firmware() {
     local FILELIST=( ${PRODUCT_COPY_FILES_LIST[@]} )
     local COUNT=${#FILELIST[@]}
     local SRC="$2"
-    local OUTPUT_DIR="$LINEAGE_ROOT"/"$OUTDIR"/radio
+    local OUTPUT_DIR="$ROOT"/"$OUTDIR"/radio
 
     if [ "$VENDOR_RADIO_STATE" -eq "0" ]; then
         echo "Cleaning firmware output directory ($OUTPUT_DIR).."

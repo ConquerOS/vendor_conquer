@@ -18,7 +18,7 @@ define build-dtboimage-target
                     break; \
                 fi; \
             done; \
-            $(MKDTIMG) create $@ --page_size=$(BOARD_KERNEL_PAGESIZE) $$(find "$$dtbo_dir" -type f -name '*.dtbo' | sort)
+            $(MKDTIMG) create $@ --page_size=$(BOARD_KERNEL_PAGESIZE) $$(find "$$dtbo_dir" -name '*.dtbo')
     $(hide) chmod a+r $@
 endef
 
