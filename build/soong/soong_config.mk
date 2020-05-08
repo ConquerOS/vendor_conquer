@@ -12,6 +12,7 @@ $(call add_json_bool, Uses_qti_camera_device,                          $(filter 
 $(call add_json_bool, Target_needs_netd_direct_connect_rule, $(filter true,$(TARGET_NEEDS_NETD_DIRECT_CONNECT_RULE)))
 $(call add_json_str,  Specific_camera_parameter_library,     $(TARGET_SPECIFIC_CAMERA_PARAMETER_LIBRARY))
 $(call add_json_bool, Uses_generic_camera_parameter_library, $(if $(TARGET_SPECIFIC_CAMERA_PARAMETER_LIBRARY),,true))
+$(call add_json_str_omitempty, Target_init_vendor_lib, $(TARGET_INIT_VENDOR_LIB))
 
 # This causes the build system to strip out the last comma in our nested struct, to keep the JSON valid.
 _json_contents := $(_json_contents)__SV_END
