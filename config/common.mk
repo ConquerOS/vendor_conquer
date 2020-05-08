@@ -80,6 +80,11 @@ PRODUCT_PACKAGES += \
     rcs_service_api \
     rcs_service_api.xml
 
+# Build some apps
+PRODUCT_PACKAGES += \
+    Messaging \
+    ExactCalculator
+
 # MSIM manual provisioning
 PRODUCT_PACKAGES += telephony-ext
 PRODUCT_BOOT_JARS += telephony-ext
