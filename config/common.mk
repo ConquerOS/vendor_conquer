@@ -21,6 +21,11 @@ PRODUCT_COPY_FILES += frameworks/native/data/etc/android.software.sip.voip.xml:s
 # and breaks WPA Supplicant compilation.
 DISABLE_EAP_PROXY := true
 
+# Include package overlays
+PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += $(LOCAL_PATH)/overlay
+DEVICE_PACKAGE_OVERLAYS += \
+    $(LOCAL_PATH)/overlay/common/
+
 # Permissions
 PRODUCT_COPY_FILES += \
     vendor/conquer/config/permissions/privapp-permissions-google-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-google.xml \
