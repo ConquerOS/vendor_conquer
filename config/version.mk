@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-CONQUER_HOST_TIME := $(shell date +%m%d%H%M)
+CONQUER_HOST_TIME := $(shell date +"%Y%m%d-%H%M")
 
 ifndef CONQUER_BUILD_TYPE
    CONQUER_BUILD_TYPE := UNOFFICIAL
