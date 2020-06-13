@@ -28,6 +28,10 @@ type Product_variables struct {
 	Target_init_vendor_lib struct {
 		Whole_static_libs []string
 	}
+	Target_surfaceflinger_fod_lib struct {
+		Cflags []string
+		Whole_static_libs []string
+	}
 }
 
 type ProductVariables struct {
@@ -41,4 +45,5 @@ type ProductVariables struct {
 	Uses_generic_camera_parameter_library  *bool `json:",omitempty"`
 	Specific_camera_parameter_library  *string `json:",omitempty"`
 	Target_init_vendor_lib  *string `json:",omitempty"`
+        Target_surfaceflinger_fod_lib  *string `json:",omitempty"`
 }
