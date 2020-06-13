@@ -6,6 +6,8 @@ type Product_variables struct {
 	}
 	Has_legacy_camera_hal1 struct {
 		Cflags []string
+		Overrides []string
+		Shared_libs []string
 	}
 	Target_process_sdk_version_override struct {
 		Cppflags []string
@@ -29,8 +31,8 @@ type Product_variables struct {
 }
 
 type ProductVariables struct {
- 	Additional_gralloc_10_usage_bits  *string `json:",omitempty"`
- 	Has_legacy_camera_hal1  *bool `json:",omitempty"`
+	Additional_gralloc_10_usage_bits  *string `json:",omitempty"`
+	Has_legacy_camera_hal1  *bool `json:",omitempty"`
 	Target_process_sdk_version_override *string `json:",omitempty"`
 	Target_shim_libs  *string `json:",omitempty"`
 	Target_uses_color_metadata  *bool `json:",omitempty"`
