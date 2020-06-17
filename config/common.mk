@@ -71,6 +71,9 @@ PRODUCT_PACKAGES += \
 # Bluetooth Audio (A2DP)
 PRODUCT_PACKAGES += libbthost_if
 
+# Filesystem
+TARGET_FS_CONFIG_GEN += vendor/conquer/config/config.fs
+
 # Include explicitly to work around GMS issues
 PRODUCT_PACKAGES += libprotobuf-cpp-full
 
