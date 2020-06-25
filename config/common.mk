@@ -87,7 +87,7 @@ PRODUCT_PACKAGES += \
 
 # Build some apps
 PRODUCT_PACKAGES += \
-    Messaging \
+    messaging \
     ExactCalculator
 
 # MSIM manual provisioning
