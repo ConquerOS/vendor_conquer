@@ -89,9 +89,10 @@ PRODUCT_PACKAGES += \
     messaging \
     ExactCalculator
 
-# Build ConquerCamera
+# Build ConquerOS Required Apps
 PRODUCT_PACKAGES += \
-    ConquerCamera
+    ConquerCamera \
+    Gallery2
 
 # MSIM manual provisioning
 PRODUCT_PACKAGES += telephony-ext
