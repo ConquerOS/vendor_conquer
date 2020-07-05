@@ -53,10 +53,6 @@ PRODUCT_COPY_FILES += \
     vendor/conquer/prebuilt/etc/hostapd/hostapd.deny:system/etc/hostapd/hostapd.deny \
     vendor/conquer/prebuilt/etc/hostapd/hostapd.accept:system/etc/hostapd/hostapd.accept
 
-# Build Snapdragon apps
-PRODUCT_PACKAGES += \
-    SnapdragonGallery
-
 # Include support for additional filesystems
 PRODUCT_PACKAGES += \
     e2fsck \
@@ -133,8 +129,8 @@ USE_DEX2OAT_DEBUG := false
 PRODUCT_MINIMIZE_JAVA_DEBUG_INFO := true
 PRODUCT_ART_TARGET_INCLUDE_DEBUG_BUILD := false
 
-# Move Wi-Fi modules to vendor
-PRODUCT_VENDOR_MOVE_ENABLED := true
+# Common Device Configuration
+include device/conquer/common/device.mk
 
 # Version
 include vendor/conquer/config/version.mk
