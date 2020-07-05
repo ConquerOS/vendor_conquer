@@ -93,6 +93,10 @@ PRODUCT_PACKAGES += \
     messaging \
     ExactCalculator
 
+# Build ConquerCamera
+PRODUCT_PACKAGES += \
+    ConquerCamera
+
 # MSIM manual provisioning
 PRODUCT_PACKAGES += telephony-ext
 PRODUCT_BOOT_JARS += telephony-ext
