@@ -90,7 +90,6 @@ PRODUCT_PACKAGES += \
 
 # Build ConquerOS Required Apps
 PRODUCT_PACKAGES += \
-    ConquerCamera \
     Gallery2
 
 # MSIM manual provisioning
