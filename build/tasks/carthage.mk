@@ -18,6 +18,7 @@ CONQUER_TARGET_PACKAGE := $(CONQUER_BUILD_VERSION).zip
 carthage: $(INTERNAL_OTA_PACKAGE_TARGET)
 	$(hide) mv $(INTERNAL_OTA_PACKAGE_TARGET) $(CONQUER_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(CONQUER_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(CONQUER_TARGET_PACKAGE).md5sum
+	$(hide) ./vendor/conquer/tools/generate_json_build_info.sh $(CONQUER_TARGET_PACKAGE)
 	@echo "Done"
 	@echo -e "\t ===============================-Package complete-============================================================="
 	@echo -e "\t Zip: $(CONQUER_TARGET_PACKAGE)"
