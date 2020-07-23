@@ -925,7 +925,7 @@ function write_makefile_header() {
     [ "$COMMON" -eq 1 ] && local DEVICE="$DEVICE_COMMON"
 
     NUM_REGEX='^[0-9]+$'
-    printf "# Copyright (C) $YEAR ConquerOS \n" > $1
+    printf "# Copyright (C) $YEAR ConquerOS\n" > $1
     cat << EOF >> $1
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
