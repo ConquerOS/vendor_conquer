@@ -150,3 +150,5 @@ include vendor/conquer/config/ota.mk
 
 # ConquerUI
 include vendor/conquerui/config.mk
+
+include vendor/oplauncher/OPLauncher2.mk
