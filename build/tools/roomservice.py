@@ -31,8 +31,8 @@ default_manifest = ".repo/manifest.xml"
 
 custom_local_manifest = ".repo/local_manifests/conquer_manifest.xml"
 custom_dependencies = "conquer.dependencies"
-org_manifest = "conquer-devices"  # leave empty if org is provided in manifest
-org_display = "conquer-devices"  # needed for displaying
+org_manifest = "ConquerOS-devices"  # leave empty if org is provided in manifest
+org_display = "ConquerOS-devices"  # needed for displaying
 custom_default_revision =  os.getenv('ROOMSERVICE_DEFAULT_BRANCH', 'ten')
 
 github_auth = None
