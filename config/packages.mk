@@ -31,6 +31,10 @@ PRODUCT_PACKAGES += \
 endif
 endif
 
+# SystemUI plugins
+PRODUCT_PACKAGES += \
+    QuickAccessWallet
+
 # World APN list
 PRODUCT_PACKAGES += \
     apns-conf.xml
