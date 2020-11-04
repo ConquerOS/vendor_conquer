@@ -12,6 +12,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     QtiSoundRecorder
 
+# Config
+PRODUCT_PACKAGES += \
+    SimpleDeviceConfig
+
 # Customizations
 PRODUCT_PACKAGES += \
     IconShapeSquareOverlay \
