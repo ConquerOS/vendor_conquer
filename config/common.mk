@@ -114,5 +114,8 @@ include vendor/conquer/config/conquer_audio.mk
 # Include ConquerUI
 include vendor/conquerui/config.mk
 
+# Include Common packages
+include vendor/conquer/config/packages.mk
+
 # Include Version
 include vendor/conquer/config/version.mk

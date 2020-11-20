@@ -1,0 +1,36 @@
+#
+# Copyright (C) The ConquerOS Project
+#
+
+# Build ConquerOS Required Apps
+PRODUCT_PACKAGES += \
+    ExactCalculator \
+    Gallery2 \
+    LatinIME \
+    messaging
+
+PRODUCT_PACKAGES += \
+    QtiSoundRecorder
+
+# Customizations
+PRODUCT_PACKAGES += \
+    IconShapeSquareOverlay \
+    NavigationBarMode2ButtonOverlay
+
+# Telephony packages
+PRODUCT_PACKAGES += \
+    Stk
+
+# Root
+PRODUCT_PACKAGES += \
+    adb_root
+ifneq ($(TARGET_BUILD_VARIANT),user)
+ifeq ($(WITH_SU),true)
+PRODUCT_PACKAGES += \
+    su
+endif
+endif
+
+# World APN list
+PRODUCT_PACKAGES += \
+    apns-conf.xml
