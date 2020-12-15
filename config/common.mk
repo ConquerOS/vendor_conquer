@@ -77,6 +77,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_DEXPREOPT_QUICKEN_APPS += \
     Dialer
 
+# Do not preoptimize prebuilts when building GApps
+DONT_DEXPREOPT_PREBUILTS := true
+
 # Include Lineage LatinIME dictionaries
 PRODUCT_PACKAGE_OVERLAYS += vendor/conquer/overlay/dictionaries
 
