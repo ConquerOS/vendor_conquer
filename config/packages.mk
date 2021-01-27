@@ -25,6 +25,10 @@ PRODUCT_PACKAGES += \
     IconShapeSquareOverlay \
     NavigationBarMode2ButtonOverlay
 
+# Hotspot Client manager
+PRODUCT_PACKAGES += \
+    SoftAPManager
+
 # Telephony packages
 PRODUCT_PACKAGES += \
     Stk
