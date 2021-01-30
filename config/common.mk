@@ -103,6 +103,10 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.biometrics.face.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.biometrics.face.xml
 endif
 
+# LiveDisplay permissions
+PRODUCT_COPY_FILES += \
+    vendor/conquer/config/permissions/privapp-permissions-lineagehw.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-lineagehw.xml
+
 ifneq ($(HOST_OS),linux)
 ifneq ($(sdclang_already_warned),true)
 $(warning **********************************************)
