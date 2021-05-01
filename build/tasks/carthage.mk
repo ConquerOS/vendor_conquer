@@ -13,16 +13,16 @@
 # limitations under the License.
 
 CONQUER_TARGET_PACKAGE := $(PRODUCT_OUT)/$(CONQUER_BUILD_VERSION).zip
-MD5 := prebuilts/build-tools/path/$(HOST_OS)-x86/md5sum
+SHA256 := prebuilts/build-tools/path/$(HOST_OS)-x86/sha256sum
 
 .PHONY: carthage
 carthage: $(INTERNAL_OTA_PACKAGE_TARGET)
 	$(hide) mv $(INTERNAL_OTA_PACKAGE_TARGET) $(CONQUER_TARGET_PACKAGE)
-	$(hide) $(MD5) $(CONQUER_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(CONQUER_TARGET_PACKAGE).md5sum
+	$(hide) $(SHA256) $(CONQUER_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(CONQUER_TARGET_PACKAGE).sha256sum
 	@echo "Done"
 	@echo -e "\t ===============================-Package complete-============================================================="
 	@echo -e "\t Zip: $(CONQUER_TARGET_PACKAGE)"
-	@echo -e "\t MD5: `cat $(CONQUER_TARGET_PACKAGE).md5sum | awk '{print $$1}' `"
+	@echo -e "\t SHA256: `cat $(CONQUER_TARGET_PACKAGE).sha256sum | awk '{print $$1}' `"
 	@echo -e "\t Size: `du -sh $(CONQUER_TARGET_PACKAGE) | awk '{print $$1}' `"
 	@echo -e "\t ConquerOS Sussy - Be The Conqueror"
 	@echo -e "\t =============================================================================================================="
