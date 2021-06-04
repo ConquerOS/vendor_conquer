@@ -13,6 +13,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     SimpleDeviceConfig
 
+# ConquerOS Features
+PRODUCT_PACKAGES += \
+    StitchImage
+
 # Customizations
 PRODUCT_PACKAGES += \
     IconShapeSquareOverlay \
