@@ -9,9 +9,6 @@ PRODUCT_PACKAGES += \
     LatinIME \
     messaging
 
-PRODUCT_PACKAGES += \
-    QtiSoundRecorder
-
 # Config
 PRODUCT_PACKAGES += \
     SimpleDeviceConfig
