@@ -2,12 +2,15 @@
 # Copyright (C) The ConquerOS Project
 #
 
+# Prebuilt Google Apps
+ifeq ($(TARGET_USE_GAPPS), false)
 # Build ConquerOS Required Apps
 PRODUCT_PACKAGES += \
     ExactCalculator \
     Gallery2 \
     LatinIME \
     messaging
+endif
 
 # Config
 PRODUCT_PACKAGES += \
