@@ -31,3 +31,11 @@ PRODUCT_COPY_FILES += \
     $(RINGTONE_PATH)/Rockin.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Rockin.ogg \
     $(RINGTONE_PATH)/Sheep.mp3:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Sheep.mp3 \
     $(RINGTONE_PATH)/Yukaay.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/ringtones/Yukaay.ogg
+
+# Set default audio
+ifeq ($(TARGET_USE_GAPPS), false)
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.config.alarm_alert=Carbon.ogg \
+   ro.config.ringtone=Themos.ogg \
+   ro.config.notification_sound=Electra.ogg
+endif
