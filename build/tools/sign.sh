@@ -59,6 +59,6 @@ printf "%b\n======================= Package complete =======================\n
 zip: ${TOP}/${CONQUER_BUILD_VERSION}.zip
 MD5: ${MD5}
 size: ${SIZE}
-\n               ConquerOS Raven - Be The Conqueror
+\n               ConquerOS Sussy - Be The Conqueror
 ================================================================\n%b" "${BGreen}" "${Color_Off}"
 fi
