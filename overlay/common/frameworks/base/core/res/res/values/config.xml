@@ -84,9 +84,6 @@
          it should be disabled in that locale's resources. -->
     <bool name="config_buttonTextAllCaps">false</bool>
 
-    <!-- Whether or not we should show the option to show battery percentage -->
-    <bool name="config_battery_percentage_setting_available">false</bool>
-
     <!-- The package name for the default wellbeing app.
          This package must be trusted, as it has the permissions to control other applications
          on the device.
