@@ -35,10 +35,6 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/bin/backuptool_postinstall.sh
 endif
 
-# Backup Services whitelist
-PRODUCT_COPY_FILES += \
-    vendor/conquer/config/permissions/backup.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/backup.xml
-
 # Enable Android Beam on all targets
 PRODUCT_COPY_FILES += \
     vendor/conquer/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.nfc.beam.xml
