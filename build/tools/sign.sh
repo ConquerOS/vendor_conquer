@@ -53,11 +53,11 @@ python2 ${TOP}/build/tools/releasetools/ota_from_target_files -p ${TOP}/out/host
         ${CONQUER_BUILD_VERSION}.zip
 
 if [[ -f ${CONQUER_BUILD_VERSION}.zip ]]; then
-MD5=$(md5sum ${TOP}/${CONQUER_BUILD_VERSION}.zip | awk '{print $1}')
+SHA256=$(sha256sum ${TOP}/${CONQUER_BUILD_VERSION}.zip | awk '{print $1}')
 SIZE=$(du -sh ${TOP}/${CONQUER_BUILD_VERSION}.zip | awk '{print $1}')
 printf "%b\n======================= Package complete =======================\n
 zip: ${TOP}/${CONQUER_BUILD_VERSION}.zip
-MD5: ${MD5}
+SHA256: ${SHA256}
 size: ${SIZE}
 \n               ConquerOS Sussy - Be The Conqueror
 ================================================================\n%b" "${BGreen}" "${Color_Off}"
