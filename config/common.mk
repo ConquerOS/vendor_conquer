@@ -14,15 +14,6 @@
 # limitations under the License.
 #
 
-# ART
-# Optimize everything for preopt
-PRODUCT_DEX_PREOPT_DEFAULT_COMPILER_FILTER := everything
-ifeq ($(TARGET_SUPPORTS_64_BIT_APPS), true)
-# Use 64-bit dex2oat for better dexopt time.
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat64.enabled=true
-endif
-
 # Backup Tool
 PRODUCT_COPY_FILES += \
     vendor/conquer/prebuilt/common/bin/backuptool.sh:install/bin/backuptool.sh \
@@ -67,19 +58,17 @@ PRODUCT_MINIMIZE_JAVA_DEBUG_INFO := true
 # Disable vendor restrictions
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
+# Dex preopt
+PRODUCT_DEXPREOPT_SPEED_APPS += \
+    SystemUI \
+    TrebuchetQuickStep
+
 PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/conquer/overlay
 DEVICE_PACKAGE_OVERLAYS += vendor/conquer/overlay/common
 
 # Sensitive Phone Numbers list
 PRODUCT_COPY_FILES += \
     vendor/conquer/prebuilt/common/etc/sensitive_pn.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sensitive_pn.xml
-
-# Use default filter for problematic apps.
-PRODUCT_DEXPREOPT_QUICKEN_APPS += \
-    Dialer
-
-# Do not preoptimize prebuilts when building GApps
-DONT_DEXPREOPT_PREBUILTS := true
 
 # Include Lineage LatinIME dictionaries
 PRODUCT_PACKAGE_OVERLAYS += vendor/conquer/overlay/dictionaries
