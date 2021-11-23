@@ -110,16 +110,9 @@ include vendor/conquer/sdclang/sdclang.mk
 endif
 
 # Prebuilt Google Apps
-TARGET_USE_GAPPS ?= false
-ifeq ($(TARGET_USE_GAPPS), true)
-      $(warning "ConquerOS: Google apps is included")
-      $(call inherit-product-if-exists, vendor/google/gms/config.mk)
-      $(call inherit-product-if-exists, vendor/google/pixel/config.mk)
-      WITH_GMS := true
-else
-      $(warning "ConquerOS: Google apps is not included")
-      WITH_GMS := false
-endif
+$(warning "ConquerOS: Google apps are included")
+$(call inherit-product, vendor/gms/products/*.mk)
+WITH_GMS := true
 
 # Include AOSP audio files
 include vendor/conquer/config/aosp_audio.mk
