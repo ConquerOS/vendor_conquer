@@ -114,11 +114,8 @@ $(warning "ConquerOS: Google apps are included")
 $(call inherit-product, vendor/gms/products/*.mk)
 WITH_GMS := true
 
-# Include AOSP audio files
-include vendor/conquer/config/aosp_audio.mk
-
-# Include Conquer audio files
-include vendor/conquer/config/conquer_audio.mk
+# Audio
+$(call inherit-product, vendor/conquer/config/audio.mk)
 
 # Include ConquerUI
 include vendor/conquerui/config.mk
