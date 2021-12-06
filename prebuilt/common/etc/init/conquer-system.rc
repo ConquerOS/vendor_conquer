@@ -1,4 +1,4 @@
-# ConquerOS core functionality
+# conquerOS core functionality
 on init
     export TERMINFO /system/etc/terminfo
 

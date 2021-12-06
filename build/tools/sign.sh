@@ -2,7 +2,7 @@
 
 : <<'notice'
  *
- * Copyright (C) 2021 The ConquerOS Project
+ * Copyright (C) 2021 The conquerOS Project
  *
  * Usage: bash vendor/conquer/build/tools/sign.sh <device name>
  *    Example: bash vendor/conquer/build/tools/sign.sh rosy
@@ -59,6 +59,6 @@ printf "%b\n======================= Package complete =======================\n
 zip: ${TOP}/${CONQUER_BUILD_VERSION}.zip
 SHA256: ${SHA256}
 size: ${SIZE}
-\n               ConquerOS Sussy - Be The Conqueror
+\n               conquerOS Sussy - Be The Conqueror
 ================================================================\n%b" "${BGreen}" "${Color_Off}"
 fi

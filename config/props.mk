@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2020 The ConquerOS Project
+# Copyright (C) 2020 The conquerOS Project
 #
 
 ifeq ($(PRODUCT_GMS_CLIENTID_BASE),)

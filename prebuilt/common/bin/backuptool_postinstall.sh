@@ -1,6 +1,6 @@
 #!/system/bin/sh
 #
-# ConquerOS A/B OTA Postinstall Script
+# conquerOS A/B OTA Postinstall Script
 #
 
 /postinstall/system/bin/backuptool_ab.sh backup

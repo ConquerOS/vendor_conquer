@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2020 The ConquerOS Project
+# Copyright (C) 2020 The conquerOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -110,14 +110,14 @@ include vendor/conquer/sdclang/sdclang.mk
 endif
 
 # Prebuilt Google Apps
-$(warning "ConquerOS: Google apps are included")
+$(warning "conquerOS: Google apps are included")
 $(call inherit-product, vendor/gms/products/*.mk)
 WITH_GMS := true
 
 # Audio
 $(call inherit-product, vendor/conquer/config/audio.mk)
 
-# Include ConquerUI
+# Include conquerUI
 include vendor/conquerui/config.mk
 
 # Include Common packages

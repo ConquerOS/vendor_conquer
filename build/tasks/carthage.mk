@@ -1,4 +1,4 @@
-# Copyright (C) 2020 The ConquerOS Project
+# Copyright (C) 2020 The conquerOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,5 +24,5 @@ carthage: $(INTERNAL_OTA_PACKAGE_TARGET)
 	@echo -e "\t Zip: $(CONQUER_TARGET_PACKAGE)"
 	@echo -e "\t SHA256: `cat $(CONQUER_TARGET_PACKAGE).sha256sum | awk '{print $$1}' `"
 	@echo -e "\t Size: `du -sh $(CONQUER_TARGET_PACKAGE) | awk '{print $$1}' `"
-	@echo -e "\t ConquerOS Sussy - Be The Conqueror"
+	@echo -e "\t conquerOS Sussy - Be The Conqueror"
 	@echo -e "\t =============================================================================================================="

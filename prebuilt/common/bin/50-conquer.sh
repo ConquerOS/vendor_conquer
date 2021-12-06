@@ -3,7 +3,7 @@
 # ADDOND_VERSION=2
 #
 # /system/addon.d/50-conquer.sh
-# During a ConquerOS upgrade, this script backs up /system/etc/hosts,
+# During a conquerOS upgrade, this script backs up /system/etc/hosts,
 # /system is formatted and reinstalled, then the file is restored.
 #
 

@@ -1,4 +1,4 @@
-// ConquerOS soong configs
+// conquerOS soong configs
 
 bootstrap_go_package {
     name: "soong-conquer-generator",

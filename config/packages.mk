@@ -1,10 +1,10 @@
 #
-# Copyright (C) The ConquerOS Project
+# Copyright (C) The conquerOS Project
 #
 
 # Prebuilt Google Apps
 ifeq ($(TARGET_USE_GAPPS), false)
-# Build ConquerOS Required Apps
+# Build conquerOS Required Apps
 PRODUCT_PACKAGES += \
     ExactCalculator \
     Gallery2 \
@@ -16,7 +16,7 @@ endif
 PRODUCT_PACKAGES += \
     SimpleDeviceConfig
 
-# ConquerOS Features
+# conquerOS Features
 PRODUCT_PACKAGES += \
     StitchImage
 
