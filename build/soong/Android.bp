@@ -534,3 +534,22 @@ display_intf_headers_ext {
         },
     },
 }
+
+soong_config_module_type {
+    name: "surfaceflinger_qcom_extensions_display_intf",
+    module_type: "cc_defaults",
+    config_namespace: "conquerQcomVars",
+    value_variables: ["qcom_display_intf_headers_namespace"],
+    properties: [
+        "shared_libs",
+    ],
+}
+
+surfaceflinger_qcom_extensions_display_intf {
+    name: "surfaceflinger_qcom_display_intf",
+    soong_config_variables: {
+        qcom_display_intf_headers_namespace: {
+            shared_libs: ["//%s:vendor.qti.hardware.display.config-V4-ndk_platform"],
+        },
+    },
+}

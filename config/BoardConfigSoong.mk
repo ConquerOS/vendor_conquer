@@ -62,7 +62,8 @@ SOONG_CONFIG_conquerQcomVars += \
 # Only create display_headers_namespace var if dealing with UM platforms to avoid breaking build for all other platforms
 ifneq ($(filter $(UM_PLATFORMS),$(TARGET_BOARD_PLATFORM)),)
 SOONG_CONFIG_conquerQcomVars += \
-    qcom_display_headers_namespace
+    qcom_display_headers_namespace \
+    qcom_display_intf_headers_namespace
 endif
 
 # Soong bool variables
@@ -102,8 +103,15 @@ SOONG_CONFIG_conquerGlobalVars_uses_camera_parameter_lib := $(TARGET_SPECIFIC_CA
 SOONG_CONFIG_conquerGlobalVars_target_inputdispatcher_skip_event_key := $(TARGET_INPUTDISPATCHER_SKIP_EVENT_KEY)
 ifneq ($(filter $(QSSI_SUPPORTED_PLATFORMS),$(TARGET_BOARD_PLATFORM)),)
 SOONG_CONFIG_conquerQcomVars_qcom_display_headers_namespace := vendor/qcom/opensource/commonsys-intf/display
+SOONG_CONFIG_conquerQcomVars_qcom_display_intf_headers_namespace := vendor/qcom/opensource/commonsys-intf/display
 else
 SOONG_CONFIG_conquerQcomVars_qcom_display_headers_namespace := $(QCOM_SOONG_NAMESPACE)/display
+ifeq ($(TARGET_USES_OLD_DISPLAY_HAL),true)
+SOONG_CONFIG_conquerQcomVars_qcom_display_intf_headers_namespace := device/qcom/qssi/aidl/config
+PRODUCT_SOONG_NAMESPACES += device/qcom/qssi/aidl/config
+else
+SOONG_CONFIG_conquerQcomVars_qcom_display_intf_headers_namespace := $(QCOM_SOONG_NAMESPACE)/display
+endif # TARGET_USES_OLD_DISPLAY_HAL
 endif
 
 ifneq ($(TARGET_USE_QTI_BT_STACK),true)
