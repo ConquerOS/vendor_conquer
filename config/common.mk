@@ -31,10 +31,6 @@ endif
 PRODUCT_COPY_FILES += \
     vendor/conquer/config/permissions/backup.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/backup.xml
 
-# Copy all Conquer-specific init rc files
-$(foreach f,$(wildcard vendor/conquer/prebuilt/common/etc/init/*.rc),\
-	$(eval PRODUCT_COPY_FILES += $(f):$(TARGET_COPY_OUT_SYSTEM)/etc/init/$(notdir $f)))
-
 # Enable Android Beam on all targets
 PRODUCT_COPY_FILES += \
     vendor/conquer/config/permissions/android.software.nfc.beam.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.software.nfc.beam.xml
