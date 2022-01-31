@@ -549,7 +549,7 @@ surfaceflinger_qcom_extensions_display_intf {
     name: "surfaceflinger_qcom_display_intf",
     soong_config_variables: {
         qcom_display_intf_headers_namespace: {
-            shared_libs: ["//%s:vendor.qti.hardware.display.config-V4-ndk_platform"],
+            shared_libs: ["//%s:vendor.qti.hardware.display.config-V5-ndk_platform"],
         },
     },
 }
