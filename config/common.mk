@@ -62,6 +62,11 @@ PRODUCT_RESTRICT_VENDOR_FILES := false
 PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI
 
+
+# Compile SystemUI on device with `speed`.
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.systemuicompilerfilter=speed
+
 # Overlays
 PRODUCT_PACKAGES += \
     ConquerDocumentsUI \
