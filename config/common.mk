@@ -111,8 +111,8 @@ endif
 
 # Prebuilt Google Apps
 $(warning "conquerOS: Google apps are included")
-$(call inherit-product, vendor/gms/products/*.mk)
-WITH_GMS := true
+$(call inherit-product, vendor/gms/products/gms.mk)
+WITH_GMS ?= true
 
 # Audio
 $(call inherit-product, vendor/conquer/config/audio.mk)
