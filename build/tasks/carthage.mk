@@ -24,5 +24,5 @@ carthage: $(INTERNAL_OTA_PACKAGE_TARGET)
 	@echo -e "\t Zip: $(CONQUER_TARGET_PACKAGE)"
 	@echo -e "\t SHA256: `cat $(CONQUER_TARGET_PACKAGE).sha256sum | awk '{print $$1}' `"
 	@echo -e "\t Size: `du -sh $(CONQUER_TARGET_PACKAGE) | awk '{print $$1}' `"
-	@echo -e "\t conquerOS Sussy - Be The Conqueror"
+	@echo -e "\t conquerOS $(CONQUER_VERSION) - Be The Conqueror"
 	@echo -e "\t =============================================================================================================="
