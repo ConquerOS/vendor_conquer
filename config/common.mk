@@ -62,7 +62,6 @@ PRODUCT_RESTRICT_VENDOR_FILES := false
 PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI
 
-
 # Compile SystemUI on device with `speed`.
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.systemuicompilerfilter=speed
@@ -109,6 +108,11 @@ $(warning **********************************************)
 sdclang_already_warned := true
 endif
 else
+
+# Enable whole-program R8 Java optimizations for SystemUI and system_server,
+# but also allow explicit overriding for testing and development.
+SYSTEM_OPTIMIZE_JAVA ?= true
+SYSTEMUI_OPTIMIZE_JAVA ?= true
 
 # include definitions for SDCLANG
 include vendor/conquer/sdclang/sdclang.mk
