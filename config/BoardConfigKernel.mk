@@ -27,7 +27,8 @@
 #                                                      x86_64-linux-android- for x86
 #
 #   TARGET_KERNEL_CLANG_COMPILE        = Compile kernel with clang, defaults to true
-#   TARGET_KERNEL_VERSION              = Reported kernel version in top level kernel
+#   TARGET_KERNEL_CLANG_VERSION        = Clang prebuilts version, optional, defaults to clang-stable
+#   TARGET_KERNEL_CLANG_PATH           = Clang prebuilts path, optional
 #                                        makefile. Can be overriden in device trees
 #                                        in the event of prebuilt kernel.
 #
@@ -68,7 +69,14 @@ KERNEL_VERSION := $(shell grep "^VERSION = " $(TARGET_KERNEL_SOURCE)/Makefile | 
 KERNEL_PATCHLEVEL := $(shell grep "^PATCHLEVEL = " $(TARGET_KERNEL_SOURCE)/Makefile | awk '{ print $$3 }')
 TARGET_KERNEL_VERSION ?= $(shell echo $(KERNEL_VERSION)"."$(KERNEL_PATCHLEVEL))
 
-CLANG_PREBUILTS := $(BUILD_TOP)/prebuilts/clang/host/$(HOST_PREBUILT_TAG)/clang-r416183b1
+ifneq ($(TARGET_KERNEL_CLANG_VERSION),)
+    KERNEL_CLANG_VERSION := clang-$(TARGET_KERNEL_CLANG_VERSION)
+else
+    # Use the default version of clang if TARGET_KERNEL_CLANG_VERSION hasn't been set by the device config
+    KERNEL_CLANG_VERSION := clang-r450784d
+endif
+TARGET_KERNEL_CLANG_PATH ?= $(BUILD_TOP)/prebuilts/clang/host/$(HOST_PREBUILT_TAG)/$(KERNEL_CLANG_VERSION)
+
 GCC_PREBUILTS := $(BUILD_TOP)/prebuilts/gcc/$(HOST_PREBUILT_TAG)
 
 # x86 toolchain
@@ -183,8 +191,8 @@ TARGET_KERNEL_EXT_MODULES ?=
 KERNEL_MAKE_CMD := $(BUILD_TOP)/prebuilts/build-tools/$(HOST_PREBUILT_TAG)/bin/make
 
 # Set the full path to the clang command
-KERNEL_MAKE_FLAGS += HOSTCC=$(CLANG_PREBUILTS)/bin/clang
-KERNEL_MAKE_FLAGS += HOSTCXX=$(CLANG_PREBUILTS)/bin/clang++
+KERNEL_MAKE_FLAGS += HOSTCC=$(TARGET_KERNEL_CLANG_PATH)/bin/clang
+KERNEL_MAKE_FLAGS += HOSTCXX=$(TARGET_KERNEL_CLANG_PATH)/bin/clang++
 
 # Use LLVM's substitutes for GNU binutils if compatible kernel version.
 ifneq ($(TARGET_KERNEL_CLANG_COMPILE), false)
