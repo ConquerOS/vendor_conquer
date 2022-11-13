@@ -110,7 +110,7 @@ include vendor/conquer/sdclang/sdclang.mk
 endif
 
 # Prebuilt Google Apps
-WITH_GMS ?= false
+WITH_GMS ?= true
 ifeq ($(WITH_GMS),true)
     $(warning "conquerOS: Google apps are included")
     $(call inherit-product, vendor/gms/products/gms.mk)
