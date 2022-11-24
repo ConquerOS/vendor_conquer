@@ -16,11 +16,9 @@
 
 CONQUER_HOST_TIME := $(shell date +"%Y%m%d-%H%M")
 
-ifndef CONQUER_BUILD_TYPE
-   CONQUER_BUILD_TYPE := UNOFFICIAL
-endif
+CONQUER_BUILD_TYPE ?= BETA
 
-CONQUER_VERSION := Tithonia.Beta
+CONQUER_VERSION := Tithonia
 CONQUER_VERSION_NUMBER := 13.0
 
 ifeq ($(WITH_GMS),true)
