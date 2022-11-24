@@ -63,15 +63,16 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
     SystemUI \
     TrebuchetQuickStep
 
-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/conquer/overlay
-DEVICE_PACKAGE_OVERLAYS += vendor/conquer/overlay/common
+# Overlays
+PRODUCT_PACKAGES += \
+    ConquerDocumentsUI \
+    ConquerFrameworkRes \
+    ConquerSettings \
+    ConquerSystemUI
 
 # Sensitive Phone Numbers list
 PRODUCT_COPY_FILES += \
     vendor/conquer/prebuilt/common/etc/sensitive_pn.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sensitive_pn.xml
-
-# Include Lineage LatinIME dictionaries
-PRODUCT_PACKAGE_OVERLAYS += vendor/conquer/overlay/dictionaries
 
 # Disable EAP Proxy because it depends on proprietary headers
 # and breaks WPA Supplicant compilation.

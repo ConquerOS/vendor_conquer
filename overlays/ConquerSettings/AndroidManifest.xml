@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    coreApp="true"
+    package="com.android.settings.overlay.conquer">
+    <overlay 
+	android:targetPackage="com.android.settings" 
+	android:isStatic="true" android:priority="100" />
+</manifest>
